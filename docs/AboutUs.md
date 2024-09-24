@@ -21,12 +21,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### lm-44
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/lm-44.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/lm-44)]
+[[portfolio](team/lm-44.md)]
 
 * Role: Team Lead
 * Responsibilities: UI
