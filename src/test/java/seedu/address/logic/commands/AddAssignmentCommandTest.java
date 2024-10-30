@@ -44,7 +44,7 @@ public class AddAssignmentCommandTest {
         AddAssignmentCommand addAssignmentCommand = new AddAssignmentCommand(INDEX_FIRST_STUDENT,
                 toAddDescriptor);
         Student studentToAddAssignmentTo = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
-        Assignment expectedAssignment = new AssignmentBuilder().withStudent(studentToAddAssignmentTo).build();
+        Assignment expectedAssignment = new AssignmentBuilder().build();
         Student studentWithAssignment = studentToAddAssignmentTo.addAssignment(expectedAssignment);
 
         String expectedMessage = String.format(AddAssignmentCommand.MESSAGE_SUCCESS,
@@ -78,7 +78,7 @@ public class AddAssignmentCommandTest {
         AddAssignmentCommand addAssignmentCommand = new AddAssignmentCommand(INDEX_FIRST_STUDENT,
                 toAddDescriptor);
         Student studentToAddAssignmentTo = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
-        Assignment expectedAssignment = new AssignmentBuilder().withStudent(studentToAddAssignmentTo).build();
+        Assignment expectedAssignment = new AssignmentBuilder().build();
         Student studentWithAssignment = studentToAddAssignmentTo.addAssignment(expectedAssignment);
 
         String expectedMessage = String.format(AddAssignmentCommand.MESSAGE_SUCCESS,
@@ -124,6 +124,22 @@ public class AddAssignmentCommandTest {
                 duplicateToAddDescriptor);
 
         assertCommandFailure(addAssignmentCommandCopy, model, AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT);
+    }
+
+    @Test
+    public void execute_assignmentNameExceedsLimit_throwsCommandException() throws Exception {
+        String invalidAssignmentName = AssignmentBuilder
+            .DEFAULT_ASSIGNMENT_NAME.repeat(AssignmentName.MAXIMUM_NAME_LENGTH);
+        assertTrue(invalidAssignmentName.length() > AssignmentName.MAXIMUM_NAME_LENGTH);
+
+        AddAssignmentCommand.AssignmentDescriptor toAddDescriptor =
+                new AddAssignmentCommand.AssignmentDescriptor(AssignmentBuilder.DEFAULT_MAX_SCORE,
+                        new AssignmentName(invalidAssignmentName));
+        AddAssignmentCommand addAssignmentCommand = new AddAssignmentCommand(INDEX_FIRST_STUDENT,
+                toAddDescriptor);
+
+        assertCommandFailure(addAssignmentCommand, model,
+                String.format(AssignmentName.MESSAGE_NAME_TOO_LONG, AssignmentName.MAXIMUM_NAME_LENGTH));
     }
 
     @Test

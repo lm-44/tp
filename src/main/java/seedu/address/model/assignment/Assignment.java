@@ -7,7 +7,6 @@ import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.assignment.exceptions.ScoreExceedsMaxScoreException;
-import seedu.address.model.student.Student;
 
 /**
  * Represents an Assignment in the address book.
@@ -15,8 +14,11 @@ import seedu.address.model.student.Student;
  */
 public class Assignment {
 
-    public static final String MESSAGE_CONSTRAINTS =
+    public static final String MAX_SCORE_MESSAGE_CONSTRAINTS =
             "The maximum score should be greater than or equal to the minimum score of 0";
+    public static final String SCORE_MESSAGE_CONSTRAINTS =
+            "The score should be between (inclusive) of the minimum and maximum score";
+
     private static final int MIN_SCORE = 0;
 
     // Identity fields
@@ -26,24 +28,21 @@ public class Assignment {
     private final int maxScore;
     private int score = 0;
     private boolean hasSubmitted = false;
-    private Student student;
 
     /**
      * Every field must be present and not null.
      */
-    public Assignment(Student student, AssignmentName name, int maxScore) {
-        requireNonNull(student);
+    public Assignment(AssignmentName name, int maxScore) {
         requireNonNull(name);
-        this.student = student;
         this.assignmentName = name;
-        checkArgument(isValidScore(maxScore), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidMaxScore(maxScore), MAX_SCORE_MESSAGE_CONSTRAINTS);
         this.maxScore = maxScore;
     }
 
     /**
      * Returns true if a given maxScore is a valid score.
      */
-    public static boolean isValidScore(int test) {
+    public static boolean isValidMaxScore(int test) {
         return test >= MIN_SCORE;
     }
 
@@ -76,13 +75,11 @@ public class Assignment {
         }
 
         Assignment otherAssignment = (Assignment) other;
-        return student.equals(otherAssignment.student)
-                && assignmentName.equals(otherAssignment.assignmentName)
+        return assignmentName.equals(otherAssignment.assignmentName)
                && MIN_SCORE == otherAssignment.MIN_SCORE
                && maxScore == otherAssignment.maxScore
                && score == otherAssignment.score
-               && hasSubmitted == otherAssignment.hasSubmitted
-               && student.equals(otherAssignment.student);
+               && hasSubmitted == otherAssignment.hasSubmitted;
     }
 
     @Override
@@ -94,9 +91,7 @@ public class Assignment {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("student", student)
                 .add("assignmentName", assignmentName)
-                .add("studentName", this.student == null ? "Not Assigned" : student.getName())
                 .add("MIN_SCORE", MIN_SCORE)
                 .add("maxScore", maxScore)
                 .add("score", score)
@@ -114,9 +109,6 @@ public class Assignment {
     }
     public boolean getHasSubmitted() {
         return this.hasSubmitted;
-    }
-    public Student getStudent() {
-        return this.student;
     }
 
     public void setScore(int score) {
