@@ -53,7 +53,7 @@ public class StudentBuilder {
         phone = studentToCopy.getPhone();
         email = studentToCopy.getEmail();
         tags = new HashSet<>(studentToCopy.getTags());
-        assignments = studentToCopy.getAssignmentList();
+        assignments = new ArrayList<>(studentToCopy.getAssignmentList());
         remark = studentToCopy.getRemark();
     }
 

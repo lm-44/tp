@@ -64,8 +64,8 @@ public class DeleteAssignmentCommand extends Command {
         Assignment assignmentToDelete = assignmentList.get(assignmentIndex.getZeroBased());
         assignmentList.remove(assignmentIndex.getZeroBased());
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-        return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, assignmentToDelete.getName(),
-                student.getName().fullName), student, studentIndex.getZeroBased());
+        return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, Messages.format(assignmentToDelete) + " "
+                + Messages.format(student)));
     }
     @Override
     public boolean equals(Object other) {
