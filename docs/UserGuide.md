@@ -123,7 +123,7 @@ Constraints:
 * Phone numbers with area codes (e.g. +65) are not supported.
 * Maximum email length is 256 characters
 <box type="tip" seamless>
-**Tip:** A student can have any number of tags (including 0)
+Tip: A student can have any number of tags (including 0)
 </box>
 
 Examples:
@@ -176,9 +176,9 @@ Constraints:
 * Maximum phone number is 16 numbers
 * Phone numbers with area codes (e.g. +65) are not supported.
 * Maximum email length is 256 characters
-  <box type="tip" seamless>
-  **Tip:** A student can have any number of tags (including 0)
-  </box>
+<box type="tip" seamless>
+Tip: A student can have any number of tags (including 0)
+</box>
 
 Examples:
 *  `edit_student si/1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st student to be `91234567` and `johndoe@example.com` respectively.
